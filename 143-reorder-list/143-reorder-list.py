@@ -8,23 +8,20 @@ class Solution:
         """
         Do not return anything, modify head in-place instead.
         """
+        stack, index, node = deque(), 0, head
         
-        stack = []
-        index = 0
-        node = head
         while node:
             stack.append(node.val)
             node = node.next
+            
         node = head
-        i = 0
         while node:
             if index % 2 == 0:
-                node.val = stack[i]
-                node = node.next
-                i += 1
+                node.val = stack.popleft()
             else:
                 node.val = stack.pop()
-                node = node.next
             index += 1
+            node = node.next
+            
         return head
                 
