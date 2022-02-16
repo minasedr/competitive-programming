@@ -4,9 +4,6 @@ class Solution:
         l = r = 0
         n = len(chars)
         
-        if n == 1:
-            return n
-    
         while r < n:
             
             while r < n and chars[r] == chars[l]:
