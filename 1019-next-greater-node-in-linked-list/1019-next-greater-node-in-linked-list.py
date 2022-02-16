@@ -6,16 +6,20 @@
 class Solution:
     def nextLargerNodes(self, head: Optional[ListNode]) -> List[int]:
         store = {}
-        res, stack = [], []
-        demo = head
+        arr, stack = [], []
+       
         while head:
-            res.append(head.val)
+            arr.append(head.val)
             head = head.next
-        for i in range(len(res)):
-            while stack and res[stack[-1]] < res[i]:
-                store[stack.pop()] = res[i]
+            
+        n = len(arr)
+        
+        for i in range(n):
+            while stack and arr[stack[-1]] < arr[i]:
+                store[stack.pop()] = arr[i]
             stack.append(i)
+            
         while stack:
             store[stack.pop()] = 0
             
-        return [store[x] for x in range(len(res))]
+        return [store[x] for x in range(n)]
