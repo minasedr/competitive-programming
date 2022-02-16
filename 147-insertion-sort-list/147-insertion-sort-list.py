@@ -8,17 +8,13 @@ class Solution:
         arr = []
         node = head
         while node:
-            arr.append(node.val)
+            arr.append(node)
             node = node.next
         for i in range(len(arr)):
             j = i - 1
-            key = arr[i]
-            while j >= 0 and key < arr[j]:
-                arr[j+1] = arr[j]
+            key = arr[i].val
+            while j >= 0 and key < arr[j].val:
+                arr[j+1].val = arr[j].val
                 j -= 1
-            arr[j+1] = key
-        sec = head
-        for i in arr:
-            sec.val = i
-            sec = sec.next
+            arr[j+1].val = key
         return head
