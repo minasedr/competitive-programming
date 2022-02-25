@@ -1,8 +1,6 @@
 class Solution:
     def decodeString(self, s: str) -> str:
-        digits = []
-        stack = []
-        sub = digit = ""
+        digits, stack, sub, digit = [] , [], "", ""
         
         for i in s:
             if i.isdigit():
@@ -13,8 +11,6 @@ class Solution:
                     digit = ""
                 stack.append(i)
             else:
-                print('digit', digit)
-                print('digits', digits)
                 while stack and stack[-1] != '[':
                     sub += str(stack.pop())
                 stack.pop()
