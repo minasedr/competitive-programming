@@ -1,13 +1,7 @@
 class Solution:
     def findCenter(self, edges: List[List[int]]) -> int:
-        center = defaultdict(int)
+        firTree = set(edges[0])
+        secTree = set(edges[1])
         
-        for edge in edges:
-            center[edge[0]] += 1
-            center[edge[1]] += 1
-            
-        highest = max(center.values())
+        return list(firTree.intersection(secTree))[0]
         
-        for key, value, in center.items():
-            if value == highest:
-                return key
