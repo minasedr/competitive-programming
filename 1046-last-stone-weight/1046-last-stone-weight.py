@@ -7,11 +7,6 @@ class Solution:
             y = heappop(heap)
             x = heappop(heap)
             if x != y:
-            # if x == y:
-            #     x = y = 0
-            # else:
-                y -= x
-                x = 0
-                heappush(heap, y)
+                heappush(heap, y-x)
                 
         return -heap[0] if heap else 0
