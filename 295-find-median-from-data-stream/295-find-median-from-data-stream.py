@@ -11,7 +11,7 @@ class MedianFinder:
 
     def findMedian(self) -> float:
         if len(self.left_heap)  == len(self.right_heap):
-            return (self.right_heap[0] + -self.left_heap[0]) / 2 
+            return (-self.left_heap[0] + self.right_heap[0]) / 2 
         else:
             return -self.left_heap[0]
     
