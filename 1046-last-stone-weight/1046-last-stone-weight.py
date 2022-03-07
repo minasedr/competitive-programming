@@ -6,9 +6,10 @@ class Solution:
         while len(heap) > 1:
             y = heappop(heap)
             x = heappop(heap)
-            if x == y:
-                x = y = 0
-            else:
+            if x != y:
+            # if x == y:
+            #     x = y = 0
+            # else:
                 y -= x
                 x = 0
                 heappush(heap, y)
