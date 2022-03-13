@@ -7,10 +7,9 @@ class Solution:
                 board[row][col] = 'X'
                 
             else:
-                
                 count = 0
-                for dirs in DIR:
-                    dx, dy = row + dirs[0], col + dirs[1]
+                for pt in DIR:
+                    dx, dy = row + pt[0], col + pt[1]
                     if inbound(dx,dy) and board[dx][dy] == 'M':
                         count += 1
                         
@@ -18,8 +17,8 @@ class Solution:
                     board[row][col] = str(count)
                 else:
                     board[row][col] = 'B'
-                    for dirs in DIR:
-                        dx, dy = row + dirs[0], col + dirs[1]
+                    for pt in DIR:
+                        dx, dy = row + pt[0], col + pt[1]
                         if inbound(dx,dy) and board[dx][dy] in ['M', 'E']:
                             dfs(dx,dy)
                         
