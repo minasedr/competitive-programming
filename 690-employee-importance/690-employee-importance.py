@@ -9,14 +9,9 @@ class Employee:
 
 class Solution:
     def getImportance(self, employees: List['Employee'], id: int) -> int:
-        self.total = 0
-       
-        store = defaultdict(int)
-        for i,j in enumerate(employees):
-            store[j.id] = i
-        def dfs(Id):
-            self.total += employees[store[Id]].importance
-            for s in employees[store[Id]].subordinates:
-                dfs(s)
-        dfs(id)        
-        return self.total
+        total = 0
+        for emp in employees:
+            if emp.id == id:
+                for sub in emp.subordinates:
+                    total += self.getImportance(employees,sub)
+                return total + emp.importance
