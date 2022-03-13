@@ -11,12 +11,9 @@ class Solution:
         max_depth = 0
         if not root:
             return 0
-        
         if not root.children:
             return 1
-
         for child in root.children:
-            depth = 1 + self.maxDepth(child)
-            max_depth = max(max_depth, depth)
-                            
+            dep = 1 + self.maxDepth(child)
+            max_depth = max(max_depth, dep)
         return max_depth
