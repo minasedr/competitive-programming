@@ -21,12 +21,11 @@ class Solution:
                         dx, dy = row + pt[0], col + pt[1]
                         if inbound(dx,dy) and board[dx][dy] in ['M', 'E']:
                             dfs(dx,dy)
-                        
+                            
+            return board
                         
         inbound = lambda x, y: 0<= x < n and 0 <= y < m
         DIR = [[1,0],[0,1],[-1,0],[0,-1],[1,-1],[-1,1],[1,1],[-1,-1]]
         
         x,y = click[0], click[1]
-        dfs(x,y)
-        
-        return board
+        return dfs(x,y)
