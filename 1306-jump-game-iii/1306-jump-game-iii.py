@@ -23,28 +23,4 @@ class Solution:
                         
             return False
             
-        return bfs(start)                
-                
-                
-                
-                
-                
-                
-                
-#             while arr[x]:
-#                 visited.add(x)
-#                 if inbound(x+arr[x]) and x+arr[x] not in visited:
-#                     x += arr[x]
-#                 elif inbound(x-arr[x]) and x-arr[x] not in visited:
-#                     x -= arr[x]
-#                 if x+arr[x] in visited and x-arr[x] in visited:
-#                     break
-#                 if x+arr[x] in visited and not inbound(x-arr[x]):
-#                     break
-#                 if x-arr[x] in visited and not inbound(x+arr[x]):
-#                     break
-#                 if not inbound(x-arr[x]) and not inbound(x+arr[x]):
-#                     break
-
-#             return True if not arr[x] else False
-#         return bfs(start)
+        return bfs(start)    
