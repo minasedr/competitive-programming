@@ -1,8 +1,8 @@
 class Solution:
     def fib(self, n: int, memo={}) -> int:
-        if n in memo:
-            return memo[n]
-        if n < 2:
-            return n
-        result = self.fib(n-1, memo) + self.fib(n-2, memo)
-        return result
+        dp = [0,1]
+        
+        for i in range(1,n):
+            dp[-1], dp[-2] = dp[-1] + dp[-2], dp[-1]
+
+        return dp[0] if n == 0 else dp[-1]
