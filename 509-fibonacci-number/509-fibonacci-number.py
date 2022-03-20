@@ -1,3 +1,8 @@
 class Solution:
-    def fib(self, n: int) -> int:
-        return n if n < 2 else self.fib(n-1) + self.fib(n-2)       
+    def fib(self, n: int, memo={}) -> int:
+        if n in memo:
+            return memo[n]
+        if n < 2:
+            return n
+        result = self.fib(n-1, memo) + self.fib(n-2, memo)
+        return result
