@@ -1,7 +1,6 @@
 class Solution:
     def divisorGame(self, n: int) -> bool:
-        win = 1
-        for i in range(n, 0, -1):
-            if not (n % i): n -= i
-            win = 1 if win == -1 else -1
-        return win == 1
+        dp = [False] * (n)
+        for i in range(1,n):
+            dp[i] = True if dp[i-1] == False else False
+        return dp[-1]
