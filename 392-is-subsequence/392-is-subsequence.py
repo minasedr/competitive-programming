@@ -5,4 +5,4 @@ class Solution:
             if not s: return True
             j = j + 1 if j < n and i == s[j] else j
             
-        return True if j == n else False
+        return j == n
