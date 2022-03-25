@@ -1,8 +1,8 @@
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
-        n = len(nums)
-        
-        for i in range(n):
-            for j in range(i+1, n):
-                cal = nums[i] + nums[j]
-                if cal == target: return [i,j]
+        store = {}
+        for i,n in enumerate(nums):
+            diff = target - n
+            if diff in store:
+                return [store[diff],i]
+            store[n] = i
