@@ -1,10 +1,8 @@
 class Solution:
     def intersect(self, nums1: List[int], nums2: List[int]) -> List[int]:
-        store, ans = defaultdict(int), []
         
-        for n in nums1:
-            store[n] += 1
-            
+        store, ans = Counter(nums1), []
+        
         for n in nums2:
             if n in store:
                 ans.append(n)
