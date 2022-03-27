@@ -8,5 +8,4 @@ class Solution:
                 
         if len(ch) != 2: return False
         x, y = ch
-        s1 = s1[:x] + s1[y] + s1[x+1:y] + s1[x] + s1[y+1:]
-        if s1 == s2: return True
+        if s1[y] == s2[x] and s1[x] == s2[y]: return True
