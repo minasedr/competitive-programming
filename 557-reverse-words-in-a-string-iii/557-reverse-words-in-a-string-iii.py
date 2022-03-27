@@ -1,13 +1,8 @@
 class Solution:
     def reverseWords(self, s: str) -> str:
-        ans, inter = [], []
+        inter, ans = s.split(), ""
         
-        for x in s:
-            inter = [x] + inter
-            if x == " ":
-                ans += inter
-                inter = []
-        ans += [' '] + inter
-        
-        return ''.join(ans).strip()
-    
+        for i in inter:
+            ans += ' ' + ''.join(i[::-1])
+            
+        return ans.strip()
