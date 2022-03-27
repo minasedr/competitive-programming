@@ -1,6 +1,6 @@
 class Solution:
     def checkValidString(self, s: str) -> bool:
-        lmin, lmax = 0, 0
+        lmin = lmax = 0
         
         for i in s:
             if i == '(': lmin, lmax = lmin+1, lmax+1
