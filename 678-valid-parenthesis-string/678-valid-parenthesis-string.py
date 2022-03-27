@@ -1,13 +1,17 @@
 class Solution:
     def checkValidString(self, s: str) -> bool:
-        lmin = lmax = 0
+        lstack, rstack = [], []
         
-        for i in s:
-            if i == '(': lmin, lmax = lmin+1, lmax+1
-            elif i == ')': lmin, lmax = lmin-1, lmax-1
-            else: lmin, lmax = lmin-1, lmax+1
+        for i in range(len(s)):
+            if s[i] == '(': lstack.append(i)
+            elif s[i] == '*': rstack.append(i)
+            else:
+                if lstack: lstack.pop()
+                elif rstack: rstack.pop()
+                else: return False
+        
+        while lstack and rstack:
+            if rstack.pop() < lstack.pop():
+                return False
             
-            if lmax < 0: return False
-            if lmin < 0: lmin = 0
-                
-        return lmin == 0
+        return not lstack
