@@ -3,7 +3,7 @@ class Solution:
         n, total = len(nums), 0
         
         for i in range(n):
-            large, small = nums[i], nums[i]
+            large = small = nums[i]
             for j in range(i+1, n):
                 large = max(large, nums[j])
                 small = min(small, nums[j])
