@@ -1,6 +1,5 @@
 class Solution:
     def checkStraightLine(self, coordinates: List[List[int]]) -> bool:
-        if len(coordinates) == 2: return True
         c, n = coordinates, len(coordinates)
         slopex = c[1][0]-c[0][0]
         slopey = c[1][1]-c[0][1]
