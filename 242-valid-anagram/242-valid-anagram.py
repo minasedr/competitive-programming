@@ -4,7 +4,4 @@ class Solution:
         
         if len(freq1) != len(freq2): return False
         
-        for i in s:
-            if freq1[i] != freq2[i]:
-                return False
-        return True
+        return freq1 == freq2
