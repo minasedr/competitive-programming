@@ -3,7 +3,7 @@ class Solution:
         stack, store = [],  {'{':'}', '(':')','[':']'}
         
         for ch in s:
-            if ch in '{[(':
+            if ch in store:
                 stack.append(ch)
             else:
                 if not stack: return False
