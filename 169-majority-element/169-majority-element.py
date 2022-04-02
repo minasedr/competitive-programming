@@ -4,7 +4,6 @@ class Solution:
         
         for n in nums:
             if maxCount == 0: elem = n
-            if elem == n: maxCount += 1
-            else: maxCount -= 1
+            maxCount += 1 if elem == n else -1
                 
         return elem
