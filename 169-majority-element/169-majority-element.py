@@ -1,7 +1,10 @@
 class Solution:
     def majorityElement(self, nums: List[int]) -> int:
-        store, n = defaultdict(int), len(nums)
+        maxCount, elem = 0, 0
         
-        for i in nums:
-            store[i] += 1
-            if store[i] > n//2: return i
+        for n in nums:
+            if maxCount == 0: elem = n
+            if elem == n: maxCount += 1
+            else: maxCount -= 1
+                
+        return elem
