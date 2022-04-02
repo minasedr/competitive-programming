@@ -1,22 +1,18 @@
 class Solution:
     def matrixBlockSum(self, mat: List[List[int]], k: int) -> List[List[int]]:
-        n, cLen, rLen = (len(mat) * len(mat[0])), len(mat[0]), len(mat)
-        ans = [[0]* cLen for _ in range(rLen)]
+        n, m, n = (len(mat) * len(mat[0])), len(mat[0]), len(mat)
+        ans = [[0]* m for _ in range(n)]
+        dp = [[0] * (m+1) for _ in range(n+1)]
         
-        def answer(r,c, k):
-            total = 0
-            rm = r-k if r>k else 0
-            rM = r+k if r+k < rLen else rLen-1
-            cm = c-k if c > k else 0
-            cM = c+k if c+k < cLen else cLen-1
-            
-            for j in range(rm, rM+1):
-                for k in range(cm, cM+1):
-                    total += mat[j][k]
-            return total
         
-        for i in range(n):
-            r, c = divmod(i,cLen)
-            ans[r][c] = answer(r,c, k)
-            
+        for i in range(1,n+1):
+            for j in range(1,m+1):
+                dp[i][j] = dp[i][j-1] + dp[i-1][j] - dp[i-1][j-1] + mat[i-1][j-1]
+        
+        for i in range(1,n+1):
+            for j in range(1,m+1):
+                a, b = min(i+k,n), min(j+k, m)
+                c, d = max(i-k-1,0), max(j-k-1, 0)
+                ans[i-1][j-1] = dp[a][b] - (dp[c][b] + dp[a][d]-dp[c][d])
+                
         return ans
