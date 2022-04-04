@@ -9,7 +9,6 @@ class Solution:
             
         def dfs(src, dest):
             visited.add(src)
-            if src == dest: return True
             for x in graph[src]:
                 if x not in visited:
                     dfs(x, dest)
