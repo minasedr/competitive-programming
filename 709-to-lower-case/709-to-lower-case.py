@@ -3,6 +3,6 @@ class Solution:
         ans = ""
         for i in s:
             if i.isupper():
-                ans += i.lower()
+                ans += chr(ord(i)+32)
             else: ans += i
         return ans
