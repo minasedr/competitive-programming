@@ -5,7 +5,7 @@ class Solution:
         for i in range(n):
             if command[i] == 'G': ans += 'G'
             if command[i] == '(':
-                if i < n and command[i+1] == ')':
+                if command[i+1] == ')':
                     ans += 'o'
                 else: ans += 'al'
             
