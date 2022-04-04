@@ -6,10 +6,7 @@ class Solution:
             ans += word1[l]+word2[r]
             l, r = l+1, r+1
             
-        while l < n:
-            ans, l = ans + word1[l], l+1
-            
-        while r < m:
-            ans, r = ans + word2[r], r+1
+        if l < n: ans += word1[l:]
+        if r < m: ans += word2[r:]
             
         return ans
