@@ -1,10 +1,10 @@
 class Solution:
     def breakPalindrome(self, palindrome: str) -> str:
-        pal, n, ans = palindrome, len(palindrome), ""
+        n, ans = len(palindrome), ""
         
         if n == 1: return "" 
         for i in range(n//2):
-            if pal[i] != 'a':
-                return pal[:i] + 'a' + pal[i+1:]
+            if palindrome[i] != 'a':
+                return palindrome[:i] + 'a' + palindrome[i+1:]
             
-        return pal[:-1] + 'b'
+        return palindrome[:-1] + 'b'
