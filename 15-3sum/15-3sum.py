@@ -3,12 +3,16 @@ class Solution:
         nums, ans, n = sorted(nums), set(), len(nums)
         
         for i in range(n):
-            fir, l, r = nums[i], i+1, n-1
-            while l < r:
-                if nums[l]+nums[r] < -fir: l += 1
-                elif nums[l]+nums[r] > -fir: r -= 1
-                else: 
-                    ans.add((fir,nums[l], nums[r]))
-                    l, r = l+1, r-1
-                    
+            if i > 0 and nums[i] == nums[i-1]: continue
+            target = -nums[i]
+            beg, end = i+1, n-1
+            
+            while beg < end:
+                if nums[beg] + nums[end] < target:
+                    beg += 1
+                elif nums[beg] + nums[end] > target:
+                    end -= 1
+                else:
+                    ans.add((nums[i],nums[beg],nums[end]))
+                    beg, end = beg + 1, end - 1
         return ans
