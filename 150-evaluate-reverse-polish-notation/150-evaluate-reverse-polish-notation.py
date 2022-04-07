@@ -7,9 +7,7 @@ class Solution:
                 stack.append(int(n))
             else:
                 x, y = stack.pop(), stack.pop()
-                if n == '+': stack.append(y+x)
-                elif n == '-': stack.append(y-x)
-                elif n == '*': stack.append(y*x)
-                else: stack.append(int(y/x))
+                res = int(eval(f"{y}{n}{x}"))
+                stack.append(res)
                     
         return stack[0]
