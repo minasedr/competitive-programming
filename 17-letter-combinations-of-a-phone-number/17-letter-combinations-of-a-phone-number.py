@@ -14,9 +14,7 @@ class Solution:
                 return
             
             for ch in store[digits[i]]:
-                stack.append(ch)
-                f(i+1, stack)
-                stack.pop()
+                f(i+1, stack+[ch])
             return result
         
         return f(0, [])
