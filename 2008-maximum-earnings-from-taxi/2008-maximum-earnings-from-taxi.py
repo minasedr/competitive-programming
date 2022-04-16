@@ -1,6 +1,6 @@
 class Solution:
     def maxTaxiEarnings(self, n: int, rides: List[List[int]]) -> int:
-        @lru_cache(None)
+        @cache
         def dp(i):
             if i >= n: return 0
             l, r, t = rides[i]
