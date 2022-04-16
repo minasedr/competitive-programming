@@ -1,15 +1,14 @@
 class Solution:
     def getAverages(self, nums: List[int], k: int) -> List[int]:
-        prefix, ans = [], [-1] * len(nums)
+        N, M = len(nums), ((2*k)+1)
+        prefix, ans = [0] * N, [-1] * N
         
-        for idx, num in enumerate(nums):
-            if prefix:
-                prefix.append(prefix[-1]+num)
-            else: prefix.append(num)
+        for i in range(N):
+            prefix[i] = prefix[i-1] + nums[i]
                 
-        for i in range(len(nums)):
-            if i+k < len(nums) and i-k >= 0:
-                left = 0 if i-k == 0 else prefix[i-k-1]
-                ans[i] = (prefix[i+k] - left)//((2*k)+1)
+        for i in range(N):
+            if i+k < N and i-k >= 0:
+                left = 0 if not i-k else prefix[i-k-1]
+                ans[i] = (prefix[i+k] - left)//M
                 
         return ans
