@@ -1,13 +1,12 @@
 class Solution:
     def smallestRangeII(self, nums: List[int], k: int) -> int:
         nums.sort()
-        result = nums[-1] - nums[0]
-        maxx = nums[-1] - k
-        minn = nums[0] + k
+        result, N = nums[-1] - nums[0], len(nums)
+        M, m = nums[-1] - k, nums[0] + k
 
-        for i in range(len(nums)-1):
-            left = min(minn, nums[i+1]-k)
-            right = max(maxx, nums[i]+k)
+        for i in range(N-1):
+            left = min(m, nums[i+1]-k)
+            right = max(M, nums[i]+k)
 
             result = min(result, right-left)
 
