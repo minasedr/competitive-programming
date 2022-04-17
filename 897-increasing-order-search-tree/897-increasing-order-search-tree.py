@@ -7,21 +7,13 @@
 class Solution:
     def increasingBST(self, root: TreeNode) -> TreeNode:
         def f(node):
+            nonlocal tree
             if not node: return
-            arr.append(node.val)
             f(node.left)
+            tree.right = TreeNode(node.val)
+            tree = tree.right
             f(node.right)
             
-        arr = []
+        ans = tree = TreeNode(-1)
         f(root)
-        arr.sort()
-        ans = TreeNode(arr[0])
-        
-        def dfs(node, i):
-            if i >= len(arr): return
-            node.left = None
-            node.right = TreeNode(arr[i])
-            dfs(node.right, i+1)
-            
-        dfs(ans, 1)
-        return ans
+        return ans.right
