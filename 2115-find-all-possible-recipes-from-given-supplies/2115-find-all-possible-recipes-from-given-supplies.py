@@ -13,12 +13,11 @@ class Solution:
         while q:
             p = q.popleft()
             sup = recipes[p] if str(p).isdecimal() else p
-            if sup in recipes:
-                ans.append(sup)
+            ans.append(sup)
             for ne in graph[sup]:
                 inDegrees[ne] -= 1
                 if inDegrees[ne] == 0:
                     q.append(ne)
                     
-        return ans
+        return [sup for sup in ans if sup in recipes]
         
