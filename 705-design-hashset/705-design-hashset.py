@@ -1,16 +1,16 @@
 class MyHashSet:
 
     def __init__(self):
-        self.hash = [math.inf] * (10 ** 6 + 1)
+        self.hash = [False] * (10 ** 6 + 1)
+        
     def add(self, key: int) -> None:
-        self.hash[key] = key
+        self.hash[key] = True
 
     def remove(self, key: int) -> None:
-        if self.hash[key] != math.inf:
-            self.hash[key] = math.inf
+        self.hash[key] = False
 
     def contains(self, key: int) -> bool:
-        return self.hash[key] != math.inf
+        return self.hash[key]
 
 
 # Your MyHashSet object will be instantiated and called as such:
