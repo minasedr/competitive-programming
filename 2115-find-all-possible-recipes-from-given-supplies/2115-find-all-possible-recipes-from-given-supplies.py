@@ -20,4 +20,3 @@ class Solution:
                     q.append(ne)
                     
         return [sup for sup in ans if sup in recipes]
-        
