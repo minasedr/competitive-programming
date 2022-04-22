@@ -5,9 +5,10 @@ class Solution:
         rank, res = [1] * N, N
         
         def find(nd):
-            while nd != parent[nd]:
-                nd = parent[nd]
-            return nd
+            if nd == parent[nd]:
+                return nd
+            parent[nd] = find(parent[nd])
+            return parent[nd]
         
         def union(n1, n2):
             p1, p2 = find(n1), find(n2)
