@@ -11,9 +11,10 @@ class Solution:
             if not root: return 0
             left = dfs(root.left)
             right = dfs(root.right)
-            self.max = max(self.max, left+root.val, right+root.val, left+right+root.val, root.val)
+            cur = root.val + max(left, right, 0)
+            self.max = max(self.max, cur, left + right + root.val)
 
-            return max(root.val, left+root.val, right+root.val)
+            return cur
         
         self.max = -inf
         dfs(root)
