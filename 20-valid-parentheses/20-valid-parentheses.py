@@ -1,13 +1,15 @@
 class Solution:
     def isValid(self, s: str) -> bool:
-        stack, store = [],  {'{':'}', '(':')','[':']'}
+        store = { ')':'(', ']': '[', '}': '{'}
         
+        stack = []
         for ch in s:
-            if ch in store:
+            if ch not in store:
                 stack.append(ch)
             else:
                 if not stack: return False
-                elif store[stack.pop()] != ch:
-                    return False
-               
-        return False if stack else True
+                elif stack[-1] != store[ch]: return False
+                stack.pop()
+            
+        return True if not stack else False
+                
