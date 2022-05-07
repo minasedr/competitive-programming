@@ -10,5 +10,4 @@ class Solution:
         for _ in range(k):
             stack.pop()
         
-        ans = ''.join(stack).lstrip('0')
-        return ans if ans else "0"
+        return ''.join(stack).lstrip('0') or "0"
