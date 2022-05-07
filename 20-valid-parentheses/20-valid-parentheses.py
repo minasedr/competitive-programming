@@ -1,13 +1,11 @@
 class Solution:
     def isValid(self, s: str) -> bool:
-        store = {')': '(', ']': '[', '}': '{'}
+        pairs = {')': '(', ']':'[', '}':'{'}
         stack = []
         
         for ch in s:
-            if ch not in store:
+            if ch not in pairs:
                 stack.append(ch)
-            elif not stack or stack[-1] != store[ch]:
+            elif not stack or stack.pop() != pairs[ch]:
                 return False
-            else: stack.pop()
-                
-        return len(stack) == 0   
+        return False if stack else True
