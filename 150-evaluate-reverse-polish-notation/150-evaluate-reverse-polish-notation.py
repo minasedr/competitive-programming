@@ -1,13 +1,18 @@
 class Solution:
     def evalRPN(self, tokens: List[str]) -> int:
         stack = []
-        
-        for n in tokens:
-            if n not in '+-/*':
-                stack.append(int(n))
+        pairs = {'+', '-', '/', '*'}
+        for token in tokens:
+            if token not in pairs:
+                stack.append(int(token))
             else:
                 x, y = stack.pop(), stack.pop()
-                res = int(eval(f"{y}{n}{x}"))
-                stack.append(res)
-                    
-        return stack[0]
+                if token == '+':
+                    stack.append(y+x)
+                elif token == '-':
+                    stack.append(y-x)
+                elif token == '/':
+                    stack.append(int(y/x))
+                else:
+                    stack.append(x*y)
+        return sum(stack)
