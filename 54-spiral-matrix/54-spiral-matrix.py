@@ -1,14 +1,18 @@
 class Solution:
     def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
-        M, N = len(matrix), len(matrix[0])
-        x, y , dx, dy = 0, 0, 0, 1
-        res = []
-        
-        for _ in range(M*N):
-            if not(0<=x+dx<M) or not(0<=y+dy<N) or matrix[x+dx][y+dy] == '#':
-                dx, dy = dy, -dx
-            res.append(matrix[x][y])
-            matrix[x][y] = '#'
-            x, y = x+dx, y+dy
+
+        def dfs(i, j):
+            if i >= M or j >= N or i < 0 or j < 0 or matrix[i][j] == '#':
+                return
+            res.append(matrix[i][j])
+            matrix[i][j] = '#'
             
+            if j+1 >= i: dfs(i, j+1)
+            dfs(i+1, j)
+            dfs(i, j-1)
+            dfs(i-1, j)
+            
+        M, N, res = len(matrix), len(matrix[0]), []
+        dfs(0, 0)
+        
         return res
