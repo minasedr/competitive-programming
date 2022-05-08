@@ -8,6 +8,4 @@ class Solution:
                 rem -= 1
             stack.append(num)
             
-        for _ in range(rem):
-            stack.pop()
-        return stack
+        return stack[:k]
