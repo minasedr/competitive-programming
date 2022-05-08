@@ -6,5 +6,5 @@ class Solution:
             while stack and stack[-1] < num:
                 store[stack.pop()] = num
             stack.append(num)
-        
-        return [store[n] if n in store else -1 for n in nums1]
+            
+        return [store.get(n, -1) for n in nums1]
