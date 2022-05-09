@@ -6,11 +6,10 @@ class Solution:
         
         for x in timePoints:
             add = change(x) % maxTime
-            if not add: add = 1440
             inMins.append(add)
            
         inMins.sort()
         for i in range(1, len(inMins)):
             res = min(res, inMins[i]-inMins[i-1])
-        
+            
         return min(res, maxTime-inMins[-1] + inMins[0])
