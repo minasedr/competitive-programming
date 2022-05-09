@@ -1,19 +1,16 @@
 class Solution:
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
-        ans, N = [], len(candidates)
+        res, N = [], len(candidates)
         
-        def f(i, cur):
-            if i >= N: return 0
-            
-            cur.append(candidates[i])
-          
-            if sum(cur) < target:
-                f(i, cur)
-                
-            if sum(cur) == target:
-                ans.append(cur[:])
-            cur.pop()
-            f(i+1, cur)
-            
-        f(0, [])
-        return ans
+        def btrack(i, tot, cur):
+            if i >= N or tot > target:
+                return 0
+            if tot == target:
+                res.append(cur)
+                return
+            for j in range(i, N):
+                x = candidates[j]
+                btrack(j, tot+x, cur+[x])
+            return res
+        
+        return btrack(0, 0, [])
