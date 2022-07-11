@@ -1,12 +1,13 @@
 class Solution {
 public:
-    map<int,int>cache;
     int fib(int n) {
-        if (n < 2)
-            return n;
-        if (cache[n])
-            return cache[n];
-        cache[n] = fib(n-1) + fib(n-2);
-        return cache[n];
+        vector<int>dp(n+1);
+        for (int i = 0; i <= n; i++) {
+            if (i < 2)
+                dp[i] = i;
+            else
+                dp[i] = dp[i-1] + dp[i-2];
+        }
+        return dp[n];
     }
 };
