@@ -11,14 +11,23 @@
  */
 class Solution {
 public:
-    bool dfs(TreeNode* r1, TreeNode* r2) {
-        if (r1 == NULL && r2 == NULL)
-            return true;
-        else if (r1 == NULL || r2 == NULL)
-            return false;
-        return r1->val == r2->val && dfs(r1->left, r2->right) && dfs(r1->right, r2->left);
-    }
     bool isSymmetric(TreeNode* root) {
-        return dfs(root->left, root->right);
+        if (!root)
+            return true;
+        queue<pair<TreeNode*,TreeNode*>>q;
+        q.push({root, root});
+        while (!q.empty()) {
+            auto p = q.front();
+            q.pop();
+            if (!p.first && !p.second)
+                continue;
+            else if (!p.first || !p.second)
+                return false;
+            else if (p.first->val != p.second->val)
+                return false;
+            q.push({p.first->left, p.second->right});
+            q.push({p.first->right, p.second->left});
+        }
+        return true;
     }
 };
