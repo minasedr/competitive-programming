@@ -15,7 +15,7 @@ public:
         queue<TreeNode*>q;
         q.push(root);
         vector<double>ans;
-        long long cur = 0;
+        double cur = 0;
         while (!q.empty()) {
             int n = q.size();
             cur = 0;
@@ -28,7 +28,7 @@ public:
                 if (u->right)
                     q.push(u->right);
             }
-            ans.push_back(double(cur)/n);
+            ans.push_back(cur/n);
         }
         return ans;
     }
