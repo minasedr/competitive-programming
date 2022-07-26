@@ -1,18 +1,17 @@
 class Solution {
 public:
     vector<int>visited;
-    map<int,vector<int>>adj;
+    unordered_map<int,vector<int>>adj;
     
     bool dfs(int v) {
         if (visited[v] == 1)
-        return false;
+            return false;
         if (visited[v] == 2)
             return true;
         visited[v] = 1;
-        for (auto u: adj[v]) {
+        for (auto u: adj[v])
             if (!dfs(u))
                 return false;
-        }
         visited[v] = 2;
         return true;
     }
