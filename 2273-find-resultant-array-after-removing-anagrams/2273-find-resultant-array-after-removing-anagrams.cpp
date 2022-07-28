@@ -15,15 +15,11 @@ public:
         return true;
     }
     vector<string> removeAnagrams(vector<string>& words) {
-        int beg = 0, end = 1, n = words.size();
-        while (end < n) {
-            while (end < n && anagram(words[beg], words[end])) {
-                words[end] = "#";
-                end++;
-            }
-            beg = end;
-            end++;
+        for (int i = words.size() - 1; i > 0; i--) {
+            if (anagram(words[i], words[i-1]))
+                words[i] = "#";
         }
+       
         vector<string>ans;
         for (auto x: words)
             if (x != "#")
