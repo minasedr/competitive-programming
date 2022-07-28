@@ -3,7 +3,7 @@ public:
     bool anagram(string s, string t) {
         if (s.size() != t.size())
             return false;
-        map<char,int>cnt;
+        unordered_map<char,int>cnt;
         for (auto x: s)
             cnt[x]++;
         for (auto y: t) {
