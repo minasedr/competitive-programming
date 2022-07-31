@@ -5,11 +5,11 @@ public:
         auto f = [&](int k) {
             long long cnt = 0;
             for (int i = 0; i < n; i++) {
-                cnt += ceil((double)piles[i] / k);
+                cnt += (piles[i] - 1) / k + 1;
             }
             return cnt <= h;
         };
-        long long lo = 1, hi = accumulate(piles.begin(), piles.end(), 0ll);
+        long long lo = 1, hi = *max_element(piles.begin(), piles.end());
         while (lo < hi) {
             long long mid = lo + (hi - lo) / 2;
             if (f(mid))
