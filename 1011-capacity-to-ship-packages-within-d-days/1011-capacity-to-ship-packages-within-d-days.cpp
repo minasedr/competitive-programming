@@ -16,9 +16,11 @@ public:
             return cnt <= days;
         };
         
-        int lo = 0, hi = 0;
-        for (auto x: weights)
+        int lo = INT_MAX, hi = 0;
+        for (auto x: weights) {
+            lo = min(lo, x);
             hi += x;
+        }
         while (lo < hi) {
             int mid = lo + (hi - lo) / 2;
             if (f(mid))
