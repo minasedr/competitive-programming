@@ -3,11 +3,10 @@ public:
     int kthSmallest(vector<vector<int>>& matrix, int k) {
         int n = matrix.size();
         auto f = [&](int x) {
-            int cnt = 0, r = 0, c = n - 1;
-            while (r < matrix.size() && c >= 0) {
-                if (matrix[r][c] <= x)
-                    cnt += (c + 1), r++;
-                else c--;
+            int cnt = 0;
+            for (int i = 0; i < n; i++) {
+                int j = upper_bound(matrix[i].begin(), matrix[i].end(), x) - matrix[i].begin();
+                cnt += j;
             }
             return cnt >= k;
         };
