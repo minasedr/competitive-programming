@@ -5,11 +5,12 @@ public:
         sort(nums.begin(), nums.end());
         
         auto f = [&](int x) {
-            int cnt = 0;
-            for (int i = 0 ; i < n; i++) {
-                auto it = upper_bound(nums.begin() + i, nums.end(), nums[i] + x);
-                int j = it - nums.begin() - i - 1;
-                cnt += j;
+            int cnt = 0, beg = 0, end = 0;
+            while (beg < n || end < n) {
+                while (end < n && nums[end] - nums[beg] <= x)
+                    end++;
+                cnt += end - beg - 1;
+                beg++;
             }
             return cnt >= k;
         };
