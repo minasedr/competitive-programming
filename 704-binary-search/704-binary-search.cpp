@@ -1,14 +1,17 @@
 class Solution {
 public:
     int search(vector<int>& nums, int target) {
-        auto it = lower_bound(nums.begin(), nums.end(), target);
-        if (it == nums.end())
-            return -1;
-        else {
-            if (nums[it - nums.begin()] == target)
-                return it - nums.begin();
+        int n = nums.size();
+        int lo = 0, hi = n-1;
+        while (lo <= hi) {
+            int mid = lo + (hi - lo) / 2;
+            if (nums[mid] == target)
+                return mid;
+            else if (nums[mid] < target)
+                lo = mid + 1;
             else
-                return -1;
+                hi = mid - 1;
         }
+        return -1;
     }
 };
