@@ -9,10 +9,8 @@ public:
             if (!st.count(x-1)) {
                 cur = x;
                 len = 1;
-                while (st.count(cur+1)) {
-                    cur++;
+                while (st.count(++cur))
                     len++;
-                }
                 longest = max(longest, len);
             }
         }
