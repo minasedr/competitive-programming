@@ -2,15 +2,16 @@ class Solution {
 public:
     bool isPalindrome(string s) {
         int n = s.size();
-        vector<char> v;
-        for (int i = 0; i <n ;i++) {
-            if (isalnum(s[i]) and s[i] != ' ')
-                v.push_back(s[i]);
-        }
-        n = v.size();
-        for (int i = 0; i < v.size(); i++)
-            if ( tolower(v[i]) != tolower(v[n-i-1]))
+        int beg = 0, end = n - 1;
+        while (beg < end) {
+            while (beg < end and not isalnum(s[beg]))
+                beg++;
+            while (beg < end and not isalnum(s[end]))
+                end--;
+            while (beg < end and tolower(s[beg]) != tolower(s[end]))
                 return false;
+            beg++, end--;
+        }
         return true;
     }
 };
