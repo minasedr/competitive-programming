@@ -11,29 +11,17 @@
  */
 class Solution {
 public:
-    int sum(TreeNode* root) {
-        int ans = 0;
+    int total = 0;
+    int dfs(TreeNode* root, TreeNode* par, TreeNode* gpar) {
         if (!root)
             return 0;
-        if (root->left)
-            ans += root->left->val;
-        if (root->right)
-            ans += root->right->val;
-        return ans;
+        if (gpar && gpar->val % 2 == 0)
+            total += root->val;
+        dfs(root->left, root, par);
+        dfs(root->right, root, par);
+        return total;
     }
-    
     int sumEvenGrandparent(TreeNode* root) {
-        int total = 0;
-        function<int(TreeNode*)> dfs = [&](TreeNode* root) {
-            if (!root)
-                return 0;
-            if (root->val % 2 == 0)
-                total += sum(root->left) + sum(root->right);
-            dfs(root->left);
-            dfs(root->right);
-            return total;
-                
-        };
-        return dfs(root);
+       return dfs(root, NULL, NULL);
     }
 };
