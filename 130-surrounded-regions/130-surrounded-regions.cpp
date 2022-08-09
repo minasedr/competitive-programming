@@ -16,13 +16,6 @@ public:
         function<bool(int, int)> boundary = [&](int r, int c) {
             return (r == 0 || c == 0 || r == n - 1 || c == m - 1);
         };
-        int cnt = 0;
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
-                cnt += (board[i][j] == 'X');
-            }
-        }
-        if (!cnt) return;
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
                 if (!vis[i][j] && boundary(i, j) && board[i][j] == 'O')
