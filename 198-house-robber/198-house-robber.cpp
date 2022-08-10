@@ -2,12 +2,16 @@ class Solution {
 public:
     int rob(vector<int>& nums) {
         int n = nums.size();
-        int dp[101];
+        vector<int> dp(n);
         for (int i = 0; i < n; i++) {
-            int fir = i > 0 ? dp[i-1]: 0;
-            int sec = i > 1? dp[i-2]: 0;
-            dp[i] = max(fir, sec + nums[i]);
+            if (i < 2)
+                dp[i] = nums[i];
+            else {
+                int left = (i - 3 >= 0 ? dp[i-3] : 0);
+                int right = (i - 2 >= 0 ? dp[i-2] : 0);
+                dp[i] = max(left, right) + nums[i];
+            }
         }
-        return dp[n-1];
+        return *max_element(dp.begin(), dp.end());
     }
 };
