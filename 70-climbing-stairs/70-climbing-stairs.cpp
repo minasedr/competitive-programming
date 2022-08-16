@@ -1,13 +1,15 @@
 class Solution {
 public:
+    unordered_map<int, int>memo;
+    int dp(int n) {
+        if (n == 0) return 0;
+        if (n == 1) return 1;
+        if (n == 2) return 2;
+        if (memo[n]) return memo[n];
+        memo[n] = dp(n - 1) + dp(n - 2);
+        return memo[n];
+    }
     int climbStairs(int n) {
-        vector<int>dp (n + 1, 0);
-        dp[0] = 1;
-        for (int x = 1; x <= n; x++) {
-            for (auto c: {1, 2})
-                if (x - c >= 0)
-                dp[x] += dp[x-c];
-        }
-        return dp[n];
+        return dp(n);
     }
 };
