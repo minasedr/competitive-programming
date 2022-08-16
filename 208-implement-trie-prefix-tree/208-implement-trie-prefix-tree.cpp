@@ -1,7 +1,7 @@
 class Trie {
     struct TrieNode {
         bool isEnd;
-        map<char, TrieNode*> children;
+        unordered_map<char, TrieNode*> children;
     };
     
     TrieNode* root;
