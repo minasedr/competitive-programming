@@ -1,17 +1,20 @@
 class Solution {
 public:
-    int memo[2005][2005];
-    int dp(int idx, int cur, vector<int>& nums, int target) {
-        if (idx >= nums.size())
-            return (cur == target);
-        if (memo[idx][cur + 1000] == 0) {
-            int add = dp(idx + 1, cur + nums[idx], nums, target);
-            int sub = dp(idx + 1, cur - nums[idx], nums, target);
-            memo[idx][cur + 1000] = add + sub;
-        }
-        return memo[idx][cur + 1000];
-    }
     int findTargetSumWays(vector<int>& nums, int target) {
-        return dp(0, 0, nums, target);
+        int n = nums.size();
+        int total = accumulate(nums.begin(), nums.end(), 0);
+        vector<vector<int>> dp(n, vector<int>(2 * total + 1));
+        dp[0][nums[0] + total] = 1;
+        dp[0][-nums[0] + total] += 1;
+        
+        for (int i = 1; i < n; i++) {
+            for (int sum = -total; sum <= total; sum++) {
+                if (dp[i-1][sum + total] > 0) {
+                    dp[i][sum + nums[i] + total] += dp[i-1][sum + total];
+                    dp[i][sum - nums[i] + total] += dp[i-1][sum + total];
+                }
+            }
+        }
+        return (abs(target) > total ? 0: dp[n - 1][target + total]);
     }
 };
