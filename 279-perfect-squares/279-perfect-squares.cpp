@@ -1,17 +1,13 @@
 class Solution {
 public:
+    unordered_map<int,int> memo;
     int numSquares(int n) {
-        vector<int>dp(n + 1, 1e9), res;
-        dp[0] = 0;
-        for (int i = 1; i * i <= n; i++) {
-            res.push_back(i*i);
-        }
-        for (int i = 1; i <= n; i++) {
-            for (auto c: res) {
-                if (i - c >= 0)
-                    dp[i] = min(dp[i], dp[i - c] + 1);
-            }
-        }
-        return dp[n];
+        if (n == 0) return 0;
+        if (memo[n]) return memo[n];
+        int ans = INT_MAX;
+        for (int i = 1; i * i <= n; i++)
+            ans = min(ans, 1 + numSquares(n - (i * i)));
+        memo[n] = ans;
+        return ans;
     }
 };
