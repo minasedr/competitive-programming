@@ -1,7 +1,9 @@
 class Solution {
 public:
     int findDuplicate(vector<int>& nums) {
-        unordered_map<int, int> vis;
+        const int n = 1e5 + 1;
+        int vis[n];
+        memset(vis, 0, sizeof(vis));
         for (auto x: nums) {
             if (vis[x])
                 return x;
