@@ -1,9 +1,9 @@
 class Solution {
 public:
     string longestPalindrome(string s) {
-        int n  = s.size(), start = 0, maxLen = 1;
-        vector<vector<int>> dp(n, vector<int>(n, -1));
-
+        int n = s.size(), start = 0, maxLen = 1;
+        vector<vector<int>> dp(n, vector<int>(n));
+        
         for (int i = 0; i < n; i++)
             dp[i][i] = 1;
         for (int i = 0; i < n - 1; i++) {
@@ -13,9 +13,8 @@ public:
                 maxLen = 2;
             }
         }
-        
         for (int len = 3; len <= n; len++) {
-            for (int beg = 0; beg <= n - len; beg++) {
+            for (int beg = 0; beg < n - len + 1; beg++) {
                 int end = beg + len - 1;
                 if (dp[beg + 1][end - 1] == 1 && s[beg] == s[end]) {
                     dp[beg][end] = 1;
