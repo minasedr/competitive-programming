@@ -1,7 +1,7 @@
 class Solution {
 public:
     bool check(string str1, string str2) {
-        map<char, int> vis;
+        unordered_map<char, int> vis;
         for(auto str: str1)
             vis[str]++;
         
