@@ -1,25 +1,22 @@
 class Solution {
 public:
-    set<vector<int>> res;
-    vector<int> cur;
-    void f(int i, vector<int>& nums) {
-        if (!res.count(cur))
-            res.insert(cur);
-        if (i >= nums.size())
-            return;
-        for (int j = i; j < nums.size(); j++) {
-            cur.push_back(nums[j]);
-            f(j + 1, nums);
-            cur.pop_back();
-        }
-    }
-    
     vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+        int n = nums.size();
         sort(nums.begin(), nums.end());
-        f(0, nums);
-        vector<vector<int>> ans;
-        for (auto x: res)
-            ans.push_back(x);
-        return ans;
+        set<vector<int>> st;
+        vector<vector<int>> res;
+        
+        for (int i = 0; i < (1 << n); i++) {
+            vector<int> cur;
+            for (int j = 0; j < n; j++) {
+                if (i & (1 << j))
+                    cur.push_back(nums[j]);
+            }
+            st.insert(cur);
+        }
+        for (auto x: st)
+            res.push_back(x);
+        
+        return res;
     }
 };
