@@ -1,16 +1,14 @@
 class Solution {
 public:
-    unordered_map<int, int> memo;
-    int dp(int idx, vector<int>& nums) {
-        if (idx >= nums.size()) return 0;
-        if (memo[idx]) return memo[idx];
-        int a = nums[idx] + dp(idx + 2, nums);
-        int b = dp(idx + 1, nums);
-        memo[idx] = max(a,b);
-        return memo[idx];
-    }
     int rob(vector<int>& nums) {
-        if (!accumulate(nums.begin(), nums.end(), 0)) return 0;
-        return dp(0, nums);
+        int n = nums.size();
+        vector<int>dp(n);
+        
+        for (int i = 0; i < n; i++) {
+            int left = (i > 2 ? dp[i - 3]: 0);
+            int right = (i > 1? dp[i - 2]: 0);
+            dp[i] = max(left, right) + nums[i];
+        }
+        return *max_element(dp.begin(), dp.end());
     }
 };
