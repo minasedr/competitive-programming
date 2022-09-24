@@ -1,14 +1,22 @@
 class Solution {
 public:
-    int dp(int n) {
-        if (n < 5) return n;
-        return 3 * dp(n - 3);
-    }
     int integerBreak(int n) {
-        if (n <= 3)
-            return n - 1;
-        if (n == 4)
-            return n;
-        return dp(n);
+        vector<int> dp(n+1);
+        if(n == 2)
+            return 1;
+        if(n == 3)
+            return 2;
+        dp[0] = 1;
+        dp[1] = 1;
+        dp[2] = 2;
+        dp[3] = 3;
+        
+        for (int i = 4; i <= n; i++) {
+            int mx = 0;
+            for (int j = 0; j <= i; j++)
+                mx = max(mx, dp[j] * dp[i - j]);
+            dp[i] = mx;
+        }
+        return dp[n]; 
     }
 };
