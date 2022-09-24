@@ -24,7 +24,8 @@ struct DSU {
             return false;
         if (sz[a] < sz[b])
             swap(a, b);
-        sz[a] += sz[b];
+        sz[a] = max(sz[a] , sz[b] + 1);
+        // sz[a] += sz[b];
         rep[b] = a;
         return true;
     }
