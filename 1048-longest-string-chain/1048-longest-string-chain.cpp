@@ -2,7 +2,7 @@ class Solution {
 public:
     int longestStrChain(vector<string>& words) {
         int n = words.size(), mx = 0;
-        map<string, int> dp;
+        unordered_map<string, int> dp;
         sort(words.begin(), words.end(), [](string a, string b) {
             return a.size() < b.size();
         });
