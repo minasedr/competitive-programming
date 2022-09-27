@@ -10,11 +10,10 @@ public:
         for (auto word: words) {
             for (int j = 0; j < word.size(); j++) {
                 string w = word.substr(0, j) + word.substr(j + 1);
-                if (dp.count(w))
-                    dp[word] = max(dp[word], dp[w] + 1);
+                dp[word] = max(dp[word], dp[w] + 1);
                 mx = max(mx, dp[word]);
             }
         }
-        return mx + 1;
+        return mx;
     }
 };
