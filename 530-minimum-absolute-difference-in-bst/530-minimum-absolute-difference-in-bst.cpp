@@ -15,14 +15,13 @@ public:
     void dfs(TreeNode* root) {
         if (not root)
             return;
-        diff.push_back(root->val);
         dfs(root->left);
+        diff.push_back(root->val);
         dfs(root->right);
     }
     int getMinimumDifference(TreeNode* root) {
         dfs(root);
         int ans = INT_MAX, n = diff.size();
-        sort(diff.begin(), diff.end());
         for (int i = 1; i < n; i++)
             ans = min(ans, diff[i] - diff[i - 1]);
         
