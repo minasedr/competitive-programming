@@ -12,9 +12,9 @@
 class Solution {
 public:
     bool hasPathSum(TreeNode* root, int targetSum) {
-        if (!root)
+        if (not root)
             return false;
-        if (!root->left && !root->right)
+        if (not root->left and not root->right)
             return targetSum == root->val;
         return hasPathSum(root->left, targetSum - root->val) or hasPathSum(root->right, targetSum - root->val);
     }
