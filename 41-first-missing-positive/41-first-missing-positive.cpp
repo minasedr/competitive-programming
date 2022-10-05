@@ -1,14 +1,20 @@
-const int N = 1e5;
 class Solution {
 public:
     int firstMissingPositive(vector<int>& nums) {
-        vector<int> cnt(N + 1, 1);
-        cnt[0] = 0;
-        for (auto n: nums)
-            if (n > 0 && n < N + 1) cnt[n] = 0;
+        int n = nums.size(), start = 0;
+        // first missing number must be between [1, n + 1];
+        // use cycle sort
+        // time complexity would be worst case - O(N)
+        // space complexity - O(1)
+        while (start < n) {
+            if (nums[start] > 0 && nums[start] <= n && nums[start] != nums[nums[start] - 1]) {
+                swap(nums[start], nums[nums[start] - 1]);
+            } else
+                start++;
+        }
         
-        for (int i = 1; i <= N; i++)
-            if (cnt[i]) return i;
-        return N + 1;
+        for (int i = 0; i < n; i++)
+            if (nums[i] != i + 1) return i + 1;
+        return n + 1;
     }
 };
