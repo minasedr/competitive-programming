@@ -1,14 +1,20 @@
 class Solution {
 public:
     int findDuplicate(vector<int>& nums) {
-        const int n = 1e5 + 1;
-        int vis[n];
-        memset(vis, 0, sizeof(vis));
-        for (auto x: nums) {
-            if (vis[x])
-                return x;
-            vis[x]++;
+        int fast = nums[0];
+        int slow = nums[0];
+        
+        do {
+            fast = nums[nums[fast]];
+            slow = nums[slow];
+        } while (slow != fast);
+        
+        slow = nums[0];
+        
+        while (slow != fast) {
+            slow = nums[slow];
+            fast = nums[fast];
         }
-        return -1;
+        return slow;
     }
 };
