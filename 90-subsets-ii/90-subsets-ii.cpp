@@ -1,22 +1,21 @@
 class Solution {
 public:
     vector<vector<int>> subsetsWithDup(vector<int>& nums) {
-        int n = nums.size();
-        sort(nums.begin(), nums.end());
-        set<vector<int>> st;
         vector<vector<int>> res;
+        int n = nums.size();
+        set<vector<int>> vis;
         
         for (int i = 0; i < (1 << n); i++) {
-            vector<int> cur;
-            for (int j = 0; j < n; j++) {
+            multiset<int> st;
+            for (int j = 0; j < 32; j++) {
                 if (i & (1 << j))
-                    cur.push_back(nums[j]);
+                    st.insert(nums[j]);
             }
-            st.insert(cur);
+            vector<int> cur(st.begin(), st.end());
+            if (!vis.count(cur))
+                res.push_back(cur);
+            vis.insert(cur);
         }
-        for (auto x: st)
-            res.push_back(x);
-        
         return res;
     }
 };
