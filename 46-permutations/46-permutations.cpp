@@ -1,26 +1,20 @@
 class Solution {
 public:
     vector<vector<int>> res;
-    set<int> vis;
-    void f(int i, vector<int> cur, vector<int>& nums) {
-        if (cur.size() == nums.size()) {
-            res.push_back(cur);
+    void f(int i, vector<int>& nums) {
+        if (i >= nums.size()) {
+            res.push_back(nums);
             return;
         }
         
-        for (int j = 0; j < nums.size(); j++) {
-            if (!vis.count(nums[j])) {
-                vis.insert(nums[j]);
-                cur.push_back(nums[j]);
-                f(i + 1, cur, nums);
-                cur.pop_back();
-                vis.erase(nums[j]);
-            }
+        for (int j = i; j < nums.size(); j++) {
+            swap(nums[i], nums[j]);
+            f(i + 1, nums);
+            swap(nums[i], nums[j]);
         }
     }
     vector<vector<int>> permute(vector<int>& nums) {
-        vector<int>cur;
-        f(0, cur, nums);
+        f(0, nums);
         return res;
     }
 };
