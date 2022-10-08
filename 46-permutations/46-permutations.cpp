@@ -1,19 +1,20 @@
 using i64 = long long;
 class Solution {
 public:
-    i64 fact(int n) {
-        i64 cnt = 1;
-        for (int i = n; i > 1; i--)
-            cnt *= i;
-        return cnt;
+    vector<vector<int>> res;
+    void dfs(int idx, vector<int>&nums) {
+        if (idx >= nums.size()) {
+            res.push_back(nums);
+            return;
+        }
+        for (int i = idx; i < nums.size(); i++) {
+            swap(nums[idx], nums[i]);
+            dfs(idx + 1, nums);
+            swap(nums[idx], nums[i]);
+        }
     }
     vector<vector<int>> permute(vector<int>& nums) {
-        vector<vector<int>> res;
-        
-        for (int i = 0; i < fact(nums.size()); i++) {
-            res.push_back(nums);
-            next_permutation(nums.begin(), nums.end());
-        }
+        dfs(0, nums);
         return res;
     }
 };
