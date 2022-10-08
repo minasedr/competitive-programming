@@ -1,21 +1,23 @@
 class Solution {
 public:
     vector<vector<int>> res;
-    void f(int i, int k, int n, vector<int> cur) {
-        if (i > n) return;
-        if (cur.size() == k) {
-            res.push_back(cur);
+    vector<int>cur;
+    set<set<int>> vis;
+    void dfs(int idx, int n, int k) {
+        if (cur.size() >= k) {
+            set<int> x(cur.begin(), cur.end());
+            if (cur.size() == k && !vis.count(x))
+                res.push_back(cur);
             return;
         }
-        for (int j = i + 1; j <= n; j++) {
+        for (int j = idx + 1; j <= n; j++) {
             cur.push_back(j);
-            f(j, k, n, cur);
+            dfs(j, n, k);
             cur.pop_back();
         }
     }
     vector<vector<int>> combine(int n, int k) {
-        vector<int> cur;
-        f(0, k, n, cur);
+        dfs(0, n, k);
         return res;
     }
 };
