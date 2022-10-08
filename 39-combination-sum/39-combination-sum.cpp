@@ -2,12 +2,10 @@ class Solution {
 public:
     vector<vector<int>> res;
     vector<int> cur;
-    set<set<int>> vis;
     
     void dfs(int idx, int sum, int target, vector<int>& cand) {
         if (sum >= target || idx >= cand.size()) {
-            set<int> st(cur.begin(),cur.end());
-            if (sum == target && !vis.count(st))
+            if (sum == target)
                 res.push_back(cur);
             return;
         }
