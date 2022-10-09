@@ -1,25 +1,29 @@
 class Solution {
 public:
+    vector<int> LIS(vector<int> & nums) {
+        int n = nums.size();
+        vector<int> dp(n, 1);
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < i; j++) {
+                if (nums[i] > nums[j])
+                    dp[i] = max(dp[i], dp[j] + 1);
+            }
+        }
+        return dp;
+    }
     int minimumMountainRemovals(vector<int>& nums) {
-        int n = nums.size(), ans = 0;
-        vector<int> dpf(n, 1), dpb(n, 1);
+        int n = nums.size();
         
-        for (int i = 1; i < n; i++)
-            for (int j = 0; j < i; j++)
-                if (nums[i] > nums[j])
-                    dpf[i] = max(dpf[i], dpf[j] + 1);
-        
+        vector<int> dp1 = LIS(nums);
         reverse(nums.begin(), nums.end());
-        for (int i = 1; i < n; i++)
-            for (int j = 0; j < i; j++)
-                if (nums[i] > nums[j])
-                    dpb[i] = max(dpb[i], dpb[j] + 1);
-            
-        reverse(dpb.begin(), dpb.end());
-        for (int i = 0; i < n; i++)
-            if (dpf[i] > 1 && dpb[i] > 1)
-                ans = max(ans, dpf[i] + dpb[i] - 1);
+        vector<int> dp2 = LIS(nums);
+        reverse(dp2.begin(), dp2.end());
         
-        return n - ans;
+        int cnt = 0;
+        for (int i = 0; i < n; i++)
+            if (dp1[i] > 1 && dp2[i] > 1)
+            cnt = max(cnt, dp1[i] + dp2[i] - 1);
+        return n - cnt;
+
     }
 };
