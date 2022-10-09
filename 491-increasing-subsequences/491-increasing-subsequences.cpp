@@ -6,7 +6,7 @@ public:
     void dfs(int idx, vector<int>& nums) {
         if (cur.size() > 1)
             res.push_back(cur);
-        set<int> vis;
+        unordered_set<int> vis;
         for (int i = idx; i < nums.size(); i++) {
             if (vis.count(nums[i]))
                 continue;
