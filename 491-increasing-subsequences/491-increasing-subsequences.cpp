@@ -1,28 +1,26 @@
 class Solution {
 public:
-    bool check(vector<int> a) {
-        int n = a.size();
-        for (int i = 1; i < n; i++)
-            if (a[i] < a[i - 1])
-                return false;
-        return true;
+    vector<vector<int>> res;
+    vector<int> cur;
+    
+    void dfs(int idx, vector<int>& nums) {
+        if (cur.size() > 1)
+            res.push_back(cur);
+        set<int> vis;
+        for (int i = idx; i < nums.size(); i++) {
+            if (vis.count(nums[i]))
+                continue;
+            if (cur.empty() || cur.back() <= nums[i]) {
+                cur.push_back(nums[i]);
+                vis.insert(nums[i]);
+                dfs(i + 1, nums);
+                cur.pop_back();
+            }
+        }
     }
     vector<vector<int>> findSubsequences(vector<int>& nums) {
         int n = nums.size();
-        vector<vector<int>> res;
-        set<vector<int>> vis;
-        for (int i = 0; i < (1 << n); i++) {
-            vector<int>cur;
-            for (int j = 0; j < 32; j++) {
-                if (i & (1 << j))
-                    cur.push_back(nums[j]);
-            }
-            if (vis.count(cur))
-                continue;
-            if (cur.size() >= 2 && check(cur))
-                res.push_back(cur);
-            vis.insert(cur);
-        }
+        dfs(0, nums);
         return res;
     }
 };
