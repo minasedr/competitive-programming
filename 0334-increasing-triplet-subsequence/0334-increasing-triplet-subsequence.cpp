@@ -1,18 +1,16 @@
 class Solution {
 public:
     bool increasingTriplet(vector<int>& nums) {
-        //  [1,2,3,4,5]
-        int n = nums.size();
-        vector<int> dp;
+        int left = INT_MAX, mid = INT_MAX;
         
-        for (int i = 0; i < n; i++) {
-            auto it = lower_bound(dp.begin(), dp.end(), nums[i]);
-            if (it == dp.end())
-                dp.push_back(nums[i]);
-            else
-                *it = nums[i];
+        for (int right = 0; right < nums.size(); right++) {
+            if (nums[right] > mid)
+                return true;
+            else if (nums[right] > left && nums[right] < mid)
+                mid = nums[right];
+            else if (nums[right] < left)
+                left = nums[right];
         }
-        return dp.size() >= 3;
-        // [1, 2, 3]
+        return false;
     }
 };
