@@ -3,7 +3,7 @@ public:
     bool canReach(vector<int>& arr, int start) {
         queue<int> q;
         q.push(start);
-        set<int> vis;
+        unordered_set<int> vis;
         vis.insert(start);
         function<bool(int)> inbound = [&](int x) {
             return (x >= 0 && x < arr.size());
