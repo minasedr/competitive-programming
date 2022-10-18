@@ -1,20 +1,32 @@
 class Solution {
 public:
+    vector<vector<int>> newMatrix;
+    int value = 1;
+    bool inBound(int row, int col, int n) {
+        if (row < 0 || row >= n)
+            return false;
+        if (col < 0 || col >= n)
+            return false;
+        return true;
+    }
+    void spiralMove(int row, int col, int n) {
+        if (not inBound(row, col, n))
+            return;
+        if (newMatrix[row][col] != 0)
+            return;
+        newMatrix[row][col] = value;
+        value += 1;
+        if (col + 1 >= row)
+            spiralMove(row, col + 1, n);
+        spiralMove(row + 1, col, n);
+        spiralMove(row, col - 1, n);
+        spiralMove(row - 1, col, n);
+    }
+    
     vector<vector<int>> generateMatrix(int n) {
-        int num = 1;
-        vector<vector<int>> ans(n, vector<int>(n));
-        function<void(int, int)> dfs;
-        dfs = [&](int r, int c) {
-            if (r < 0 || r >= n || c < 0 || c >= n || ans[r][c] != 0)
-                return;
-            ans[r][c] = num++;
-            if (c + 1 >= r)
-                dfs(r, c + 1);
-            dfs(r + 1, c);
-            dfs(r, c - 1);
-            dfs(r - 1, c);
-        };
-        dfs(0, 0);
-        return ans;
+        newMatrix.resize(n, vector<int>(n));
+        spiralMove(0, 0, n);
+        
+        return newMatrix;
     }
 };
