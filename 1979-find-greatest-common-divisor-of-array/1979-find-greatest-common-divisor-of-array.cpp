@@ -1,6 +1,11 @@
 class Solution {
 public:
     int findGCD(vector<int>& nums) {
-        return __gcd(*min_element(nums.begin(), nums.end()), *max_element(nums.begin(), nums.end()));
+        int mn = 1000, mx = 1;
+        for (auto n: nums) {
+            mn = min(mn, n);
+            mx = max(mx, n);
+        }
+        return __gcd(mn, mx);
     }
 };
