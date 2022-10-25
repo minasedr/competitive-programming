@@ -14,13 +14,12 @@ public:
     pair<int, int> dfs(TreeNode* node) {
         if (not node)
             return {0, 0};
-        auto left = dfs(node->left);
-        auto right = dfs(node->right);
-        int x = left.first + right.first;
-        int y = left.second + right.second;
-        int a = left.first + right.second;
-        int b = left.second + right.first;
-        return {y + node->val, max({x,y,a,b})};
+        
+        auto [leftRob, leftDont] = dfs(node->left);
+        auto [rightRob, rightDont] = dfs(node->right);
+        int robNow = leftDont + rightDont;
+        int dontNow = max({robNow, leftDont + rightRob, leftRob + rightDont, rightRob + leftRob});
+        return {node->val + robNow, dontNow};
     }
     int rob(TreeNode* root) {
         auto ans = dfs(root);
