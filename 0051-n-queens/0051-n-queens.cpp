@@ -3,7 +3,7 @@ public:
     vector<vector<string>> solveNQueens(int n) {
         vector<vector<string>> ans;
         vector<string> cur(n, string(n, '.'));
-        set<array<int,2>> vis;
+        unordered_set<int> diag, anti_diag, vert;
 
         function<bool(int, int)> inbound = [&](int r, int c) {
             return (r >= 0 and r < n and c >= 0 and c < n);
@@ -11,14 +11,10 @@ public:
         function<bool(int, int)> valid = [&](int r, int c) {
             if (not inbound(r, c))
                 return false;
-            for (auto [nr, nc] : vis) {
-                if (nr + nc == r + c)
-                    return false;
-                if (nr - nc == r - c)
-                    return false;
-                if (nr == r || nc == c)
-                    return false;
-            }
+            if (anti_diag.count(r - c) || diag.count(r + c))
+                return false;
+            if (vert.count(c))
+                return false;
             return true;
         };
         
@@ -30,15 +26,18 @@ public:
                 cur[r][c] = '.';
                 return;
             }
-            
-            vis.insert({r, c});
+            diag.insert(r + c);
+            anti_diag.insert(r - c);
+            vert.insert(c);
             cur[r][c] = 'Q';
             for (int j = 0; j < n; j++) {
                 if (valid(r + 1, j))
                     dfs(r + 1, j);
             }
             cur[r][c] = '.';
-            vis.erase({r, c});
+            diag.erase(r + c);
+            anti_diag.erase(r - c);
+            vert.erase(c);
         };
         int cnt = 0;
         for (int j = 0; j < n; j++)
