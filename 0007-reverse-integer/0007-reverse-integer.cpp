@@ -1,20 +1,14 @@
 class Solution {
 public:
-    long long rev(long long n) {
-        long long ans = 0;
-        while (n) {
-            ans = (ans * 10) + (n % 10);
-            n /= 10;
+    int reverse(int x) {
+        int rev = 0;
+        while (x) {
+            int pop = x % 10;
+            x /= 10;
+            if (rev > INT_MAX / 10 || rev < INT_MIN / 10)
+                return 0;
+            rev = rev * 10 + pop;
         }
-        return ans;
-    }
-    long long reverse(long long x) {
-        if (x == 0) return 0;
-        int n = log10(abs(x)) + 1;
-        long long r = rev(abs(x));
-        if (r > INT_MAX)
-            return 0;
-        long long ans = rev(abs(x));
-        return (x < 0 ? -ans : ans);
+        return rev;
     }
 };
