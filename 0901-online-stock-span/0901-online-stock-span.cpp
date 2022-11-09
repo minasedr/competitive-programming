@@ -4,13 +4,13 @@ public:
     StockSpanner() {}
     
     int next(int price) {
-        int cnt = 0;
+        int cnt = 1;
         while (!st.empty() && st.top()[1] <= price) {
             cnt += st.top()[0];
             st.pop();
         }
-        st.push({cnt + 1, price});
-        return cnt + 1;
+        st.push({cnt, price});
+        return cnt;
     }
 };
 
