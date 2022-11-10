@@ -1,19 +1,16 @@
 class Solution {
 public:
     vector<int> findErrorNums(vector<int>& nums) {
-        int n = nums.size();
-        vector<int> ans, cnt(n + 1);
-        
-        for (auto n: nums)
-            cnt[n]++;
-        
-        int dupl = -1, missing = -1;
-        for (int i = 1; i <= n; i++) {
-            if (cnt[i] > 1)
-                dupl = i;
-            else if (cnt[i] == 0)
-                missing = i;
+        unordered_set<int> st;
+        int miss = 0, sum = 0, m = nums.size();
+        for (auto n: nums) {
+            if (st.count(n)) {
+                miss = n;
+                continue;
+            }
+            st.insert(n);
+            sum += n;
         }
-        return {dupl, missing};
+        return {miss, (m + 1) * m / 2 - sum};
     }
 };
