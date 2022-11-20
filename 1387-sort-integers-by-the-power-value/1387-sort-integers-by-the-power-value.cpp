@@ -1,7 +1,8 @@
+vector<int> dp(1000000, -1);
+
 class Solution {
 public:
     int getKth(int lo, int hi, int k) {
-        vector<int> dp(1000000, -1);
         priority_queue<array<int, 2>, vector<array<int, 2>>, greater<>> pq; 
         dp[1] = 0;
 
