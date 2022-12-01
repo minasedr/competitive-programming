@@ -11,17 +11,30 @@
  */
 class Solution {
 public:
-    int ans = 0;
-    int dfs(TreeNode* root) {
-        if (not root)
-            return 0;
-        int left = dfs(root->left);
-        int right = dfs(root->right);
-        ans = max(ans, left + right + 1);
-        return (left + right + 1);
-    }
     int countNodes(TreeNode* root) {
-        dfs(root);
-        return ans;
+        function<int(TreeNode*)> leftH;
+        function<int(TreeNode*)> rightH;
+        
+        leftH = [](TreeNode* root) {
+            int h = 0;
+            while (root) {
+                h++;
+                root = root->left;
+            }
+            return h;
+        };
+        rightH = [](TreeNode* root) {
+            int h = 0;
+            while (root) {
+                h++;
+                root = root->right;
+            }
+            return h;
+        };
+        int left = leftH(root);
+        int right = rightH(root);
+        if (left == right)
+            return (1 << left) - 1;
+        return 1 + countNodes(root->left) + countNodes(root->right);
     }
 };
