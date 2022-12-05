@@ -1,28 +1,21 @@
 class Solution {
 public:
     bool isMatch(string s, string p) {
-        map<pair<int, int>, bool> dp;
-        function<bool(int, int)> dfs;
-        dfs = [&](int i, int j) {
-            if (j < 0) return i < 0;
-            if (i < 0) {
-                for (int k = 0; k <= j; k++)
-                    if (p[k] != '*')
-                        return false;
-                return true;
+        int n = s.size(), m = p.size(), idx = 1;
+        vector<vector<bool>> dp(n + 1, vector<bool>(m + 1));
+        
+        while (idx <= m && p[idx - 1] == '*')
+            dp[0][idx++] = true;
+        
+        dp[0][0] = true;
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= m; j++) {
+                if (p[j - 1] == '*')
+                    dp[i][j] = (dp[i - 1][j] || dp[i][j - 1]);
+                else
+                    dp[i][j] = ((s[i - 1] == p[j - 1] || p[j - 1] == '?') && dp[i - 1][j - 1]);
             }
-            if (dp.count({i, j}))
-                return dp[{i, j}];
-            if (s[i] == p[j] || p[j] == '?') {
-                 if (dfs(i - 1, j - 1))
-                    return dp[{i, j}] = true;
-            }
-            else if (p[j] == '*') {
-                if (dfs(i - 1, j - 1) || dfs(i, j - 1) || dfs(i - 1, j))
-                    return dp[{i, j}] = true;
-            }
-            return dp[{i, j}] = false;
-        };
-        return dfs(s.size() - 1, p.size() - 1);
+        }
+        return dp[n][m];
     }
 };
