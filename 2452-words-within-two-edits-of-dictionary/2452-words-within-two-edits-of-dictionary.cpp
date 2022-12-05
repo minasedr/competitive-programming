@@ -9,18 +9,17 @@ public:
                     d++;
             return (d <= 2 ? true: false);
         };
+        vector<string> ans;
+
         unordered_set<string> cur;
         for (auto q: queries) {
             for (auto d: dictionary) {
-                if (check(q, d))
-                    cur.insert(q);
+                if (check(q, d)) {
+                    ans.push_back(q);
+                    break;
+                }
             }
         }
-        vector<string> ans;
-        for (auto q: queries)
-            if (cur.count(q))
-                ans.push_back(q);
-        
         return ans;
     }
 };
