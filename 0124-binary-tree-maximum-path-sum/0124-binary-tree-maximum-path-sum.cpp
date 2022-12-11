@@ -17,8 +17,9 @@ public:
             return 0;
         int left = dfs(root->left);
         int right = dfs(root->right);
-        ans = max({ans, root->val, left + root->val, right + root->val, left + right + root->val});
-        return max({left, right, 0}) + root->val;
+        int cur = left + right + root->val;
+        ans = max({ans, cur, cur - left, cur - right, root->val});
+        return root->val + max({left, right, 0});
     }
     int maxPathSum(TreeNode* root) {
         dfs(root);
