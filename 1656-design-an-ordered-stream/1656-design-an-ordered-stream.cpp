@@ -2,8 +2,9 @@ class OrderedStream {
 public:
     int n;
     int idx = 1;
-    map<int, string> mp;
+    vector<string> mp;
     OrderedStream(int n) {
+        mp.resize(n + 1, "");
         this->n = n;
     }
     
@@ -12,7 +13,7 @@ public:
         mp[idKey] = value;
         
         for (int i = 1; i <= n; i++) {
-            if (not mp.count(i))
+            if (mp[i] == "")
                 break;
             if (i < idKey)
                 continue;
