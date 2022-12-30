@@ -1,9 +1,9 @@
 class OrderedStream {
 public:
-    int n;
-    int idx = 1;
+    int n, idx;
     vector<string> mp;
     OrderedStream(int n) {
+        idx = 1;
         mp.resize(n + 1, "");
         this->n = n;
     }
@@ -11,14 +11,10 @@ public:
     vector<string> insert(int idKey, string value) {
         vector<string> cur;
         mp[idKey] = value;
-        
-        for (int i = 1; i <= n; i++) {
-            if (mp[i] == "")
-                break;
-            if (i < idKey)
-                continue;
-            cur.push_back(mp[i]);
-        }
+        if (idx == idKey)
+            while (idx <= n and mp[idx] != "")
+                cur.push_back(mp[idx++]);
+            
         return cur;
     }
 };
