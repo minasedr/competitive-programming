@@ -2,7 +2,9 @@ class Solution {
 public:
     int minCostClimbingStairs(vector<int>& cost) {
         int n = cost.size();
-        vector<int> dp(n + 1, -1);
+        int dp[n + 1];
+        memset(dp, -1, sizeof dp);
+        
         function<int(int)> dfs;
         dfs = [&](int i) {
             if (i >= n)
