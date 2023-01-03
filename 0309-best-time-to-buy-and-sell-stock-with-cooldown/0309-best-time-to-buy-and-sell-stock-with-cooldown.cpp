@@ -2,20 +2,15 @@ class Solution {
 public:
     int maxProfit(vector<int>& prices) {
         int n = prices.size();
-        vector<vector<int>> dp(n + 1, vector<int>(2, -1));
-        function<int(int, bool)> dfs;
-        dfs = [&](int i, bool sold) {
-            if (i >= n) return 0;
-            if (dp[i][sold] != -1) return dp[i][sold];
-            int buy = 0, sell = 0, cool = 0;
-            if (sold)
-                buy = dfs(i + 1, false) - prices[i];
-            else
-                sell = dfs(i + 2, true) + prices[i];
-            cool = dfs(i + 1, sold);
-            return dp[i][sold] = max({buy, sell, cool});
-        };
+        vector<int> hasStock(n), noStock(n), justSold(n);
+        hasStock[0] = -prices[0];
+        justSold[0] = INT_MIN;
         
-        return dfs(0, true);
+        for (int i = 1; i < n; i++) {
+            noStock[i] = max(justSold[i - 1], noStock[i - 1]);
+            hasStock[i] = max(hasStock[i - 1], noStock[i - 1] - prices[i]);
+            justSold[i] = max(hasStock[i - 1] + prices[i], justSold[i - 1]);
+        }
+        return max(noStock[n - 1], justSold[n - 1]);
     }
 };
