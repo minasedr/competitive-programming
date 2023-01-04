@@ -4,7 +4,6 @@ public:
         int n = prices.size();
         vector<int> hasStock(n), noStock(n), justSold(n);
         hasStock[0] = -prices[0];
-        justSold[0] = INT_MIN;
         
         for (int i = 1; i < n; i++) {
             noStock[i] = max(justSold[i - 1], noStock[i - 1]);
