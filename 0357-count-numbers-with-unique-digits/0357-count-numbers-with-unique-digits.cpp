@@ -1,18 +1,12 @@
 class Solution {
 public:
     int countNumbersWithUniqueDigits(int n) {
-        if (n == 1) return 10;
-        function<int(int)> f;
-        f = [&](int k) {
-            int ans = 9;
-            for (int i = 0, q = 9; i < k - 1 and q > 0; i++, q--)
-                ans *= q;
-            return ans;
-        };
-        
-        int cnt = 0;
-        for (int i = 2; i <= n; i++)
-            cnt += f(i);
-        return (cnt ? cnt + 10 : 1);
+        if (n == 0) return 1;
+        int ans = 10, k = 9, tmp = 9;
+        for (int i = 0; i < n - 1; i++) {
+            tmp *= k--;
+            ans += tmp;
+        }
+        return ans;
     }
 };
