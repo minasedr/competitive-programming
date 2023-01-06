@@ -1,20 +1,14 @@
 class Solution {
 public:
     int deleteAndEarn(vector<int>& nums) {
-        vector<int> dp(10005, -1);
-        map<int, int> cnt;
+        vector<int> dp(10005);
         
         for (auto n: nums)
-            cnt[n] += n;
+            dp[n] += n;
         
-        function<int(int)> dfs;
-        dfs = [&](int n) {
-            if (n > 10001) return 0;
-            if (dp[n] != -1)
-                return dp[n];
-            return dp[n] = max(dfs(n + 1), cnt[n] + dfs(n + 2));
-        };
+        for (int n = 2; n <= 10000; n++)
+            dp[n] = max(dp[n - 1], dp[n - 2] + dp[n]);
         
-        return dfs(1);
+        return dp[10000];
     }
 };
