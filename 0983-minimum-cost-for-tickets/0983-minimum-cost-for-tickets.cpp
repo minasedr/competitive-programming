@@ -12,7 +12,7 @@ public:
                 return dp[i];
             int cost = 1e6;
             for (int j = 0; j < 3; j++) {
-                int nxt = lower_bound(days.begin(), days.end(), days[i] + cnt[j]) - days.begin();
+                int nxt = lower_bound(days.begin() + i, days.end(), days[i] + cnt[j]) - days.begin();
                 for (int k = i + 1; k <= nxt; k++)
                     cost = min(cost, costs[j] + dfs(k));
             }
