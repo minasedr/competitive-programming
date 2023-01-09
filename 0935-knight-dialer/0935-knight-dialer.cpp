@@ -2,33 +2,22 @@ class Solution {
 public:
     int knightDialer(int n) {
         const int MOD = 1e9 + 7;
-        int dir[][2] = {{2, 1}, {2, -1}, {1, 2}, {1, -2}, {-1, 2}, {-1, -2}, {-2, 1}, {-2, -1}};
-        vector<vector<vector<int>>> dp(n + 1, vector<vector<int>>(5, vector<int>(4, -1)));
         
-        function<int(int, int, int)> dfs;
-        dfs = [&](int k, int r, int c) {
-            if (r < 1 or r > 4 or c < 1 or c > 3)
-                return 0;
-            if (r == 4 and (c == 1 or c == 3))
-                return 0;
-            if (k == n) return 1;
-            if (dp[k][r][c] != -1)
-                return dp[k][r][c];
-            int cnt = 0;
-            for (auto d: dir) {
-                int nr = r + d[0];
-                int nc = c + d[1];
-                (cnt += dfs(k + 1, nr, nc)) %= MOD;
-            }
-            return dp[k][r][c] = cnt;
-        };
+        vector<vector<int>> paths = {{4, 6}, {6, 8}, {7, 9}, 
+                                    {4, 8}, {0, 3, 9}, {},
+                                    {0, 1, 7}, {2, 6}, {1, 3}, {2, 4}};
+        vector<vector<long>> dp(n + 1, vector<long>(10));
         
-        int ans = 0;
-        for (int r = 1; r <= 4; r++) {
-            for (int c = 1; c <= 3; c++) {
-                (ans += dfs(1, r, c)) %= MOD;
-            }
-        }
-        return ans;
+        fill(dp[1].begin(), dp[1].end(), 1);
+        
+        for (int i = 2; i <= n; i++)
+            for (int j = 0; j < 10; j++)
+                for (int p : paths[j])
+                    (dp[i][j] += dp[i - 1][p]) %= MOD;
+        
+        long sum = 0;
+        for (int i = 0; i < 10; i++)
+            (sum += dp[n][i]) %= MOD;
+        return sum;
     }
 };
