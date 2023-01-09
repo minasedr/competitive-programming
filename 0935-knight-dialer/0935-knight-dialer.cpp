@@ -3,7 +3,7 @@ public:
     int knightDialer(int n) {
         const int MOD = 1e9 + 7;
         int dir[][2] = {{2, 1}, {2, -1}, {1, 2}, {1, -2}, {-1, 2}, {-1, -2}, {-2, 1}, {-2, -1}};
-        vector<vector<vector<int>>> dp(n + 1, vector<vector<int>>(20, vector<int>(20, -1)));
+        vector<vector<vector<int>>> dp(n + 1, vector<vector<int>>(5, vector<int>(4, -1)));
         
         function<int(int, int, int)> dfs;
         dfs = [&](int k, int r, int c) {
@@ -32,4 +32,3 @@ public:
         return ans;
     }
 };
-//
