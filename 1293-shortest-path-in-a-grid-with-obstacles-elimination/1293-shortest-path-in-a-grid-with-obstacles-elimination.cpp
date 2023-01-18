@@ -1,32 +1,31 @@
 class Solution {
 public:
-    int shortestPath(vector<vector<int>>& grid, int k) {
-        int m = grid.size();
-        int n = grid[0].size();
-        vector<vector<vector<bool>>> visited(m, vector<vector<bool>>(n, vector<bool>(k + 1)));
-        int DIRECTION[][2] = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
+    int shortestPath(vector<vector<int>>& grid, int K) {
+        int m = grid.size(), n = grid[0].size();
         
-        queue<array<int, 4>> Q;
-        Q.push({0, 0, grid[0][0], 0});
-        visited[0][0][grid[0][0]] = true;
+        vector<vector<vector<int>>> dp(m + 1, vector<vector<int>>(n + 1, vector<int>(K + 1, -1)));
+        vector<vector<bool>> vis(m + 1, vector<bool>(n + 1));
         
-        while (!Q.empty()) {
-            auto [row, col, obs, dist] = Q.front();
-            Q.pop();
-            if (row == m - 1 and col == n - 1)
-                return dist;
-            for (auto DIR: DIRECTION) {
-                int nr = row + DIR[0];
-                int nc = col + DIR[1];
-                if (nr < 0 or nr >= m or nc < 0 or nc >= n)
-                    continue;
-                if (visited[nr][nc][obs + grid[nr][nc]] or obs + grid[nr][nc] > k)
-                    continue;
-                Q.push({nr, nc, obs + grid[nr][nc], dist + 1});
-                visited[nr][nc][obs + grid[nr][nc]] = true;
+        function<int(int, int, int)> dfs;
+        dfs = [&](int r, int c, int k) {
+            if (r == 0 and c == 0)
+                return 0;
+            if (r < 0 or r >= m or c < 0 or c >= n or vis[r][c])
+                return (int)1e6;
+            if (dp[r][c][k] != -1)
+                return dp[r][c][k];
+            
+            if (grid[r][c] == 1) {
+                if (k == 0) return (int)1e6;
+                k--;
             }
-        }
+            vis[r][c] = true;
+            dp[r][c][k] = 1 + min({dfs(r - 1, c, k), dfs(r, c - 1, k), dfs(r + 1, c, k), dfs(r, c + 1, k)});
+            vis[r][c] = false;
+            return dp[r][c][k];
+        };
         
-        return -1;
+        int ans = dfs(m - 1, n - 1, K);
+        return (ans > m * n ? -1 : ans);
     }
 };
