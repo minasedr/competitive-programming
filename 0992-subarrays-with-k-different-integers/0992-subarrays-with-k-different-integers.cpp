@@ -5,7 +5,7 @@ public:
         
         function<int(int)> atMost;
         atMost = [&] (int x) {
-            map<int, int> cnt;
+            unordered_map<int, int> cnt;
             int ans = 0, beg = 0;
             for (int end = 0; end < n; end++) {
                 cnt[nums[end]]++;
