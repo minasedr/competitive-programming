@@ -1,18 +1,19 @@
 class Solution {
 public:
     int numOfPairs(vector<string>& nums, string target) {
-        int n = target.size(), ans = 0;
-        map<string, int> cnt;
+        int n = target.size();
+        unordered_map<string, int> cnt;
         
         for (auto num: nums)
             cnt[num]++;
         
-        for (auto [k, v] : cnt) {
-            if (target.find(k) == 0) {
-                string suff = target.substr(k.size(), n);
-                ans += v * cnt[suff];
-                if (k == suff)
-                    ans -= cnt[suff];
+        int ans = 0;
+        for (auto [num, k] : cnt) {
+            if (target.find(num) == 0) {
+                string s = target.substr(num.size(), n);
+                ans += (k * cnt[s]);
+                if (s == num) 
+                    ans -= cnt[s];    
             }
         }
         
