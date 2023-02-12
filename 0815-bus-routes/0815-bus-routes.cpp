@@ -2,27 +2,27 @@ class Solution {
 public:
     int numBusesToDestination(vector<vector<int>>& routes, int source, int target) {
         int n = routes.size();
-        map<int, vector<int>> adj;
+        unordered_map<int, vector<int>> adj;
         
         for (int i = 0; i < n; i++)
             for (int j : routes[i])
                 adj[j].push_back(i);
         
-        queue<array<int, 2>> Q;
+        queue<pair<int, int>> Q;
+        unordered_set<int> vis{source};
         Q.push({source, 0});
-        set<int> vis = {source};
         
         while (!Q.empty()) {
-            auto [dest, bus] = Q.front();
+            auto [stop, bus] = Q.front();
             Q.pop();
-            if (dest == target)
+            if (stop == target)
                 return bus;
-            for (int u: adj[dest]) {
+            for (auto u: adj[stop]) {
                 for (int v: routes[u]) {
                     if (vis.count(v))
                         continue;
-                    Q.push({v, bus + 1});
                     vis.insert(v);
+                    Q.push({v, bus + 1});
                 }
                 routes[u].clear();
             }
