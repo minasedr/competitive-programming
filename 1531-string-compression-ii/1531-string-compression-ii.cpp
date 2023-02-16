@@ -1,11 +1,8 @@
 int dp[101][27][101][101];
 class Solution {
 public:
-    string str;
-    
     int getLengthOfOptimalCompression(string s, int k) {
         int n = s.size();
-        str = s;
         memset(dp, -1, sizeof dp);
         
         function<int(int, int, int, int)> dfs;
