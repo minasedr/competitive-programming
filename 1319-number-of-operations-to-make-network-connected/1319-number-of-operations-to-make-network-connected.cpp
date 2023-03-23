@@ -5,26 +5,29 @@ public:
         vector<int> adj[n + 1];
         vector<bool> vis(n + 1);
         
-        function<void(int)> dfs;
-        dfs = [&](int node) {
-            vis[node] = true;
-            for (auto u: adj[node]) {
-                if (vis[u])
-                    continue;
-                dfs(u);
-            }
-        };
-        
         for (auto con: connections) {
             adj[con[0]].push_back(con[1]);
             adj[con[1]].push_back(con[0]);
         }
         
+        queue<int> Q;
+        
         int components = 0;
         for (int node = 0; node < n; node++) {
+            
             if (not vis[node]) {
                 components++;
-                dfs(node);
+                Q.push(node);
+                vis[node] = true;
+                while (!Q.empty()) {
+                    auto newNode = Q.front();
+                    Q.pop();
+                    for (auto u: adj[newNode]) {
+                        if (vis[u]) continue;
+                        vis[u] = true;
+                        Q.push(u);
+                    }
+                }
             }
         }
         
