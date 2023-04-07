@@ -7,12 +7,13 @@ class Solution:
             color[node] = col
             
             for nxt in graph[node]:
-                if color[nxt] == -1:
-                    dfs(nxt, col ^ 1)
+                if color[nxt] == -1 and not dfs(nxt, col ^ 1):
+                        return False
                 elif color[node] == color[nxt]:
-                    ok = False
-        for i in range(len(graph)):
-            if color[i] == -1:
-                dfs(i, 0)
+                    return False
+            return True
         
-        return ok
+        for i in range(len(graph)):
+            if color[i] == -1 and not dfs(i, 0):
+                return False
+        return True
